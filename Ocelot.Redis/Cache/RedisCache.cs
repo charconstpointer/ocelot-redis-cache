@@ -20,7 +20,10 @@ namespace Ocelot.Redis.Cache
         public void Add(string key, CachedResponse value, TimeSpan ttl, string region)
         {
             var serializedValue = _serializer.Serialize(value);
-            _cache.SetAsync(key, serializedValue.ToArray()).GetAwaiter().GetResult();
+            _cache.SetAsync(key, serializedValue.ToArray(), new DistributedCacheEntryOptions
+            {
+                SlidingExpiration = ttl
+            }).GetAwaiter().GetResult();
         }
 
         public CachedResponse Get(string key, string region)
