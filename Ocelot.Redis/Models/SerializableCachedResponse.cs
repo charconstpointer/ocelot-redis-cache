@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using Ocelot.Cache;
 
-namespace Missy.Api.Models
+namespace Ocelot.Redis.Models
 {
     [Serializable]
     public class SerializableCachedResponse

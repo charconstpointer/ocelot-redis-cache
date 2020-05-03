@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Ocelot.Cache;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Redis.Extensions;
 
 namespace Missy.Api
 {
@@ -22,15 +23,8 @@ namespace Missy.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddStackExchangeRedisCache(x =>
-            {
-                x.InstanceName = "FooBar";
-                x.Configuration = "localhost";
-            });
-            services.AddSingleton<IDictionary<string, CachedResponse>>(provider =>
-                new Dictionary<string, CachedResponse>());
-            services.AddSingleton<IOcelotCache<CachedResponse>, MissyCache>();
-            services.AddOcelot();
+            services.AddOcelot()
+                .AddRedisCache("localhost", "eksdee");
             services.AddControllers();
         }
 
@@ -42,7 +36,7 @@ namespace Missy.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseOcelot();
             app.UseRouting();
 
