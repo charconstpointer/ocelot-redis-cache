@@ -1,0 +1,23 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/podcasts/random",
+      "UpstreamPathTemplate": "/foo",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "podcasts.polskieradio.pl",
+          "Port": 443
+        }
+      ],
+      "Key": "Laura",
+      "FileCacheOptions": {
+        "TtlSeconds": 60,
+        "Region": "apigat"
+      }
+    }
+  ]
+}
